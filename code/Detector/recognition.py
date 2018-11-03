@@ -74,67 +74,6 @@ def is_image(filename):
 
 
 ###############################################################################
-# Step 1: Upload Images & Link to Persons
-# 
-# The first thing to do is create a unique "objectId" for each Person you upload
-# to the API. This ID can be anything you want, but we'll use their names for
-# this tutorial. You must include this ID in the query string when uploading
-# images so that the API knows who is in the photo. In the code example below,
-# we will upload several photos of our subjects. This will accomplish two
-# things: it will create four new Person Objects  and associate the uploaded
-# images with each Person to teach the system to recognize them again in the
-# future.
-###############################################################################
-
-###############################################################################
-
-
-###############################################################################
-
-
-###############################################################################
-# Step 2: Add Persons to a Group
-# 
-# Now that we have several Person Objects in the system with several photos
-# each, let's add them to a new Group with the name specified in _group_name.
-# Objects (People, in this tutorial) can be placed in one or more Groups.
-###############################################################################
-
-###############################################################################
-
-
-
-###############################################################################
-# Step 3: Train the Group
-# 
-# After the Group has been created, it is time to train the system to recognize
-# these people in future requests. "Training" is a computer vision term that
-# relates to the process of converting image data into mathematical models that
-# a computer system can use to detect and identify objects. The Sighthound Cloud
-# API requires that Groups be trained after new Objects are added to a Group, or
-# when additional images are uploaded and linked to existing Objects as in Step
-# 1 of the tutorial. 
-###############################################################################
-
-###############################################################################
-
-###############################################################################
-# Step 4: Test the Recognition
-# 
-# At this point, the API is now trained to recognize the Objects. The final step
-# of this tutorial will upload several images to the recognition endpoint for
-# testing: the default set provided with this sample includes one image for each
-# person, and a group shot that includes all four people plus a new person that
-# wasn't trained. The _group_name Group will be specified in the recognition
-# request so that the API knows which people to look for. A folder named "out"
-# will be created in the same directory as your source code file after the
-# photos are processed. This folder will contain images that were generated
-# based on the recognition response. The images will have bounding vertices,
-# person names, and recognition confidence scores drawn over the people
-# detected in the images uploaded for testing.
-###############################################################################
-
-###############################################################################
 def step4_test(test_path):
     """Send images to our newly trained group to test its recognition."""
     print("Step 4: Beginning tests")
@@ -152,7 +91,7 @@ def step4_test(test_path):
         print("  Submitting test image " + test_file)
         base64_image = base64.b64encode(open(file_path).read())
         params = json.dumps({"image": base64_image})
-        url_path = "/v1/recognition?groupId=" + _group_name + "objectType=vehicle"
+        url_path = "/v1/recognition?&objectType=vehiclegroupId=" + _group_name
         response = json.loads(send_request("POST", url_path, params))
 
         # Annotate the image
@@ -188,4 +127,3 @@ if __name__ == '__main__':
     root_dir = sys.argv[1]
 
     step4_test(os.path.join(root_dir, "reco-test"))
-
