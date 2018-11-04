@@ -89,17 +89,21 @@ def step4_test(test_path):
             continue
 
         print("  Submitting test image " + test_file)
-        base64_image = base64.b64encode(open(file_path).read())
+        with open(file_path, 'rb') as f:
+            contents = f.read()
+        base64_image = str(base64.b64encode(contents))[2:-1]
         params = json.dumps({"image": base64_image})
-        url_path = "/v1/recognition?&objectType=vehiclegroupId=" + _group_name
-        response = json.loads(send_request("POST", url_path, params))
+        url_path = "/v1/recognition?objectType=vehicle"
+        placeholder = str(send_request("POST", url_path, params))[2:-1]
+        print(placeholder)
+        response = json.loads(placeholder)
 
         # Annotate the image
         image = Image.open(file_path)
         font = ImageFont.load_default
         draw = ImageDraw.Draw(image)
 
-        for face in response['objects']:
+        """for face in response['objects']:
             # Retrieve and draw a bounding box for the detected face.
             json_vertices = face['faceAnnotation']['bounding']['vertices']
             vert_list = [(point['x'], point['y']) for point in json_vertices]
@@ -110,7 +114,7 @@ def step4_test(test_path):
             confidence = face['faceAnnotation']['recognitionConfidence']
             draw.text(vert_list[0], "%s - %s" % (name, confidence))
 
-        image.save(os.path.join(_output_folder, test_file))
+        image.save(os.path.join(_output_folder, test_file))"""
 
     print("Step 4 complete\n")
 
@@ -126,4 +130,4 @@ if __name__ == '__main__':
 
     root_dir = sys.argv[1]
 
-    step4_test(os.path.join(root_dir, "reco-test"))
+    step4_test(os.path.join(".", "."))
