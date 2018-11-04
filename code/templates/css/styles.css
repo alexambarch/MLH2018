@@ -1,0 +1,53 @@
+body{
+	margin:0;
+	font-family: Arial;
+	font-size:24px;
+	line-height:1.6em;
+	color:#404040;
+	text-align: center;
+}
+
+.lot{
+	position:absolute;
+	width:90%;
+	height:20%;
+	left:5%;
+	right:5%;
+	margin:auto;
+	overflow:hidden;
+	background-color:#404040;
+	color:#fff;
+}
+
+.spotleft{
+	margin-top:0.5%;
+	margin-left:0.5%;
+	margin-right:0.25%;
+	margin-bottom:0px;
+	width:6.6%;
+	height:100%;
+	float:left;
+	background-color:white;
+}
+
+.spots{
+	margin:0.25%;
+	margin-top:0.5%;
+	margin-bottom:0px;
+	width:6.6%;
+	height:100%;
+	float:left;
+	background-color:white;
+}
+
+.spotright{
+	margin-left:0.25%;
+	margin-top:0.5%;
+	margin-right:0.5%;
+	margin-bottom:0px;
+	width:6.6%;
+	height:100%;
+	float:left;
+	background-color:white;
+}
+
